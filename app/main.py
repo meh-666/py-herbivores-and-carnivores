@@ -13,7 +13,7 @@ class Animal:
     animal is hiding (default: False)
     """
 
-    alive = []
+    alive: list[Animal] = []
 
     def __init__(
         self, name: str, health: int = 100, hidden: bool = False
