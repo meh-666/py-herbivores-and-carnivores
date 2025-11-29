@@ -1,5 +1,4 @@
 from __future__ import annotations
-from typing import Union
 
 
 class Animal:
@@ -84,21 +83,21 @@ class Carnivore(Animal):
     """
 
     # noinspection PyMethodMayBeStatic
-    def bite(self, target: Union[Herbivore, Carnivore]) -> None:
+    def bite(self, target: Herbivore) -> None:
         """
-        Attempts to bite the target. The attack deals 50 damage only if:
-        - the target is a Herbivore
-        - the target is not hidden
+        Performs a bite attack on the target herbivore.
+        The attack deals 50 damage only when:
+         - the target is a Herbivore
+         - the target is not hidden
 
-        If the target's health reaches zero, it is removed from the alive list.
+        Once the target's health reaches zero or below,
+        it is removed from the global list of alive animals.
 
-        :param target: Herbivore or Carnivore instance to attack
+        :param target: Herbivore instance to attack
         :return: None
         """
-        if isinstance(target, Carnivore) or target.hidden:
-            return
+        if isinstance(target, Herbivore) and not target.hidden:
+            target.health -= 50
 
-        target.health -= 50
-
-        if not target._is_alive():
-            target._die()
+            if not target._is_alive():
+                target._die()
